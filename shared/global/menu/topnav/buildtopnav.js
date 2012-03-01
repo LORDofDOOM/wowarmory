@@ -15,19 +15,19 @@ switch(global_nav_lang){
  case "fr_fr": 
 	link1 = new Object();
 	link1.text = "WoW-Europe.com"
-	link1.href = "http://www.wow-europe.com/fr/index.xml"
+	link1.href = "http://anonym.to/?http://www.wow-europe.com/fr/index.xml"
 
 	link2 = new Object();
 	link2.text = "l'Armurerie"
-	link2.href = "http://eu.wowarmory.com/?locale=fr_fr"
+	link2.href = "http://anonym.to/?http://eu.wowarmory.com/?locale=fr_fr"
 	
 	link3 = new Object();
 	link3.text = "Forums"
-	link3.href = "http://forums.wow-europe.com/index.html?sid=2"
+	link3.href = "http://anonym.to/?http://forums.wow-europe.com/index.html?sid=2"
 	
 	link4 = new Object();
 	link4.text = "Boutique"
-	link4.href = "http://eu.blizzard.com/store/"
+	link4.href = "http://anonym.to/?http://eu.blizzard.com/store/"
 	
 	showEUStore = true;
 break;
@@ -35,19 +35,19 @@ break;
  case "es_es": 
  	link1 = new Object();
 	link1.text = "WoW-Europe.com"
-	link1.href = "http://www.wow-europe.com/es/index.xml"
+	link1.href = "http://anonym.to/?http://www.wow-europe.com/es/index.xml"
 
 	link2 = new Object();
 	link2.text = "La Armería"
-	link2.href = "http://eu.wowarmory.com/?locale=es_es"
+	link2.href = "http://anonym.to/?http://eu.wowarmory.com/?locale=es_es"
 	
 	link3 = new Object();
 	link3.text = "Foros"
-	link3.href = "http://forums.wow-europe.com/index.html?sid=4"
+	link3.href = "http://anonym.to/?http://forums.wow-europe.com/index.html?sid=4"
 	
 	link4 = new Object();
 	link4.text = "Tienda Blizzard"
-	link4.href = "http://eu.blizzard.com/store/"
+	link4.href = "http://anonym.to/?http://eu.blizzard.com/store/"
 	
 	showEUStore = true;
  break;
@@ -55,19 +55,19 @@ break;
  case "en_gb": 
  	link1 = new Object();
 	link1.text = "WoW-Europe.com"
-	link1.href = "http://www.wow-europe.com/en/index.xml"
+	link1.href = "http://anonym.to/?http://www.wow-europe.com/en/index.xml"
 
 	link2 = new Object();
 	link2.text = "Armory"
-	link2.href = "http://eu.wowarmory.com/?locale=en_gb"
+	link2.href = "http://anonym.to/?http://eu.wowarmory.com/?locale=en_gb"
 	
 	link3 = new Object();
 	link3.text = "Forums"
-	link3.href = "http://forums.wow-europe.com/index.html?sid=1"
+	link3.href = "http://anonym.to/?http://forums.wow-europe.com/index.html?sid=1"
 	
 	link4 = new Object();
 	link4.text = "Blizzard Store"
-	link4.href = "http://eu.blizzard.com/store/"
+	link4.href = "http://anonym.to/?http://eu.blizzard.com/store/"
 	
 	showEUStore = true;
  break;
@@ -75,19 +75,19 @@ break;
  case "de_de": 
  	link1 = new Object();
 	link1.text = "WoW-Europe.com"
-	link1.href = "http://www.wow-europe.com/de/index.xml"
+	link1.href = "http://anonym.to/?http://www.wow-europe.com/de/index.xml"
 
 	link2 = new Object();
 	link2.text = "Das Arsenal"
-	link2.href = "http://eu.wowarmory.com/?locale=de_de"
+	link2.href = "http://anonym.to/?http://eu.wowarmory.com/?locale=de_de"
 	
 	link3 = new Object();
 	link3.text = "Foren"
-	link3.href = "http://forums.wow-europe.com/index.html?sid=3"
+	link3.href = "http://anonym.to/?http://forums.wow-europe.com/index.html?sid=3"
 	
 	link4 = new Object();
 	link4.text = "Blizzard Shop"
-	link4.href = "http://eu.blizzard.com/store/"
+	link4.href = "http://anonym.to/?http://eu.blizzard.com/store/"
 	
 	showEUStore = true;
  break;
@@ -95,30 +95,30 @@ break;
 case "zh_cn":
  	link1 = new Object();
 	link1.text = "魔兽世界官网"
-	link1.href = "http://www.wowchina.com/"
+	link1.href = "http://anonym.to/?http://www.wowchina.com/"
 
 	link2 = new Object();
 	link2.text = "英雄榜"
-	link2.href = "http://cn.wowarmory.com/"
+	link2.href = "http://anonym.to/?http://cn.wowarmory.com/"
 	
 	link3 = new Object();
 	link3.text = "官方论坛"
-	link3.href = "http://bbs.wowchina.com/wow/forum_list.aspx?forum_id=1"
+	link3.href = "http://anonym.to/?http://bbs.wowchina.com/wow/forum_list.aspx?forum_id=1"
 	opt = false;
 break;
 
 case "zh_tw":
  	link1 = new Object();
 	link1.text = "魔獸世界官網"
-	link1.href = "http://www.wowtaiwan.com.tw"
+	link1.href = "http://anonym.to/?http://www.wowtaiwan.com.tw"
 
 	link2 = new Object();
 	link2.text = "英雄榜"
-	link2.href = "http://tw.wowarmory.com/"
+	link2.href = "http://anonym.to/?http://tw.wowarmory.com/"
 	
 	link3 = new Object();
 	link3.text = "官網論壇"
-	link3.href = "http://forum.wowtaiwan.com.tw/twow_forums_page1.asp"
+	link3.href = "http://anonym.to/?http://forum.wowtaiwan.com.tw/twow_forums_page1.asp"
 	opt = false;
 	
 	showEUStore = false;
@@ -127,15 +127,15 @@ break;
 case "ko_kr":
  	link1 = new Object();
 	link1.text = "월드 오브 워크래프트"
-	link1.href = "http://www.worldofwarcraft.co.kr"
+	link1.href = "http://anonym.to/?http://www.worldofwarcraft.co.kr"
 
 	link2 = new Object();
 	link2.text = "전투정보실"
-	link2.href = "http://kr.wowarmory.com/"
+	link2.href = "http://anonym.to/?http://kr.wowarmory.com/"
 	
 	link3 = new Object();
 	link3.text = "토론 광장"
-	link3.href = "http://www.worldofwarcraft.co.kr/community/forum/index.do"
+	link3.href = "http://anonym.to/?http://www.worldofwarcraft.co.kr/community/forum/index.do"
 	
 	showEUStore = false;
 break;
@@ -143,15 +143,15 @@ break;
  case "es_mx": 
  	link1 = new Object();
 	link1.text = "WorldofWarcraft.com"
-	link1.href = "http://www.worldofwarcraft.com/es/"
+	link1.href = "http://anonym.to/?http://www.worldofwarcraft.com/es/"
 
 	link2 = new Object();
 	link2.text = "La Armeria"
-	link2.href = "http://www.wowarmory.com/" 	
+	link2.href = "http://anonym.to/?http://www.wowarmory.com/" 	
 	
 	link3 = new Object();
 	link3.text = "Foros"
-	link3.href = "http://forums.worldofwarcraft.com/index.html?sid=2"
+	link3.href = "http://anonym.to/?http://forums.worldofwarcraft.com/index.html?sid=2"
 	
 	showEUStore = false;
  break;
@@ -159,19 +159,19 @@ break;
  case "ru_ru": 
  	link1 = new Object();
 	link1.text = "Wow-Europe.com"
-	link1.href = "http://www.wow-europe.com/ru/index.xml"
+	link1.href = "http://anonym.to/?http://www.wow-europe.com/ru/index.xml"
 
 	link2 = new Object();
 	link2.text = "Оружейная"
-	link2.href = "http://eu.wowarmory.com/?locale=ru_ru" 	
+	link2.href = "http://anonym.to/?http://eu.wowarmory.com/?locale=ru_ru" 	
 	
 	link3 = new Object();
 	link3.text = "Форумы"
-	link3.href = "http://forums.wow-europe.com/index.html?sid=5"
+	link3.href = "http://anonym.to/?http://forums.wow-europe.com/index.html?sid=5"
 	
 	link4 = new Object();
 	link4.text = "Blizzard Store"
-	link4.href = "http://eu.blizzard.com/store/"
+	link4.href = "http://anonym.to/?http://eu.blizzard.com/store/"
 	
 	showEUStore = true;
  break;
@@ -180,15 +180,15 @@ break;
  default:
     link1 = new Object();
     link1.text = "WorldofWarcraft.com"
-    link1.href = "http://www.worldofwarcraft.com/"
+    link1.href = "http://anonym.to/?http://www.worldofwarcraft.com/"
     
     link2 = new Object();
     link2.text = "The Armory"
-    link2.href = "http://www.wowarmory.com/"
+    link2.href = "http://anonym.to/?http://www.wowarmory.com/"
     
     link3 = new Object();
     link3.text = "Forums"
-    link3.href = "http://forums.worldofwarcraft.com/"
+    link3.href = "http://anonym.to/?http://forums.worldofwarcraft.com/"
 		
 	showEUStore = false;
 break;
