@@ -22,10 +22,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  **/
 
-if(!defined('__ARMORY__')) {
-    die('Direct access to this file not allowed!');
-}
+if (!defined('__ARMORY__'))
+    die('Direct access to this file not is allowed!');
+
 session_start();
+error_reporting(E_ALL);
+
 // Detect armory directory
 define('__ARMORYDIRECTORY__', dirname(dirname(__FILE__)));
 if(!defined('__ARMORYDIRECTORY__') || __ARMORYDIRECTORY__ == null) {
@@ -73,15 +75,6 @@ if(!defined('SKIP_DB')) {
         }
     }
 }
-/* Check revision */
-if(!defined('ARMORY_REVISION')) {
-    if(isset(Armory::$armoryconfig['checkVersionType']) && Armory::$armoryconfig['checkVersionType'] == 'log') {
-        Armory::Log()->writeError('ArmoryChecker : unable to detect Armroy revision!');
-    }
-    else {
-        die('<b>Revision error:</b> unable to detect Armory revision!');
-    }
-}
 /* Check config version */
 if(!defined('CONFIG_VERSION') || !isset(Armory::$armoryconfig['configVersion'])) {
     if(isset(Armory::$armoryconfig['checkVersionType']) && Armory::$armoryconfig['checkVersionType'] == 'log') {
@@ -101,9 +94,8 @@ elseif(CONFIG_VERSION != Armory::$armoryconfig['configVersion']) {
         die($CfgError);
     }
 }
-error_reporting(E_ALL);
 /* Check maintenance */
-if(Armory::$armoryconfig['maintenance'] == true && !defined('MAINTENANCE_PAGE') && !defined('ADMIN_PAGE')) {
+if(Armory::$armoryconfig['maintenance'] == true && !defined('MAINTENANCE_PAGE')) {
     header('Location: maintenance.xml');
     exit;
 }
@@ -235,19 +227,6 @@ if(defined('load_item_class')) {
     }
     // Do not create class instance here. It should be created in Characters or Items classes.
 }
-if(defined('ADMIN_PAGE')) {
-    if(!@include(__ARMORYDIRECTORY__ . '/includes/classes/class.template.php')) {
-        die('<b>Error:</b> unable to load template class!');
-    }
-    if(!@include(__ARMORYDIRECTORY__ . '/includes/classes/class.admin.php')) {
-        die('<b>Error:</b> unable to load template class!');
-    }
-    // Re-build account data from cookie.
-    Admin::InitializeAdmin();
-    // Load locale
-    Template::LoadLocale( isset($_SESSION['admin_locale']) ? $_SESSION['admin_locale'] : 'en');
-    // Do not create instances of these classes: they are using static methods.
-}
 // Start XML parser
 if(!@include(__ARMORYDIRECTORY__ . '/includes/classes/class.xmlhandler.php')) {
     die('<b>Error:</b> unable to load XML Handler class!');
@@ -255,13 +234,5 @@ if(!@include(__ARMORYDIRECTORY__ . '/includes/classes/class.xmlhandler.php')) {
 $xml = new XMLHandler(Armory::GetLocale());
 if(!defined('RSS_FEED')) {
     $xml->StartXML();
-}
-// Do not remove this
-if(isset($_GET['_DISPLAYVERSION_'])) {
-    $xml->XMLWriter()->startElement('ARMORY_REVISION');
-    $xml->XMLWriter()->text(ARMORY_REVISION);
-    $xml->XMLWriter()->endElement(); //ARMORY_REVISION
-    header('Content-type: text/xml');
-    die($xml->StopXML());
 }
 ?>

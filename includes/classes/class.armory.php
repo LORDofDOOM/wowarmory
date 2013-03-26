@@ -27,39 +27,41 @@ if(!defined('__ARMORY__')) {
 }
 
 Class Armory {
-    
+
     /** Armory database handler **/
     public static $aDB = null;
-    
+
     /** Character database hanlder **/
     public static $cDB = null;
-    
+
     /** Realm/accounts database handler **/
     public static $rDB = null;
-    
+
     /** Mangos/world database handler **/
     public static $wDB = null;
-    
+
     /** MySQL connection configs **/
     public static $mysqlconfig = array();
-    
+
     /** Armory configs **/
     public static $armoryconfig = array();
-    
+
     /** Current armory locale (ru_ru or en_gb) **/
     public static $_locale = null;
-    
+
     /** Locale (0 - en_gb, 2 - fr_fr, 3 - de_de, etc.)**/
     public static $_loc = null;
-    
+
     /** Links for multirealm info **/
     public static $realmData;
     public static $connectionData;
     public static $currentRealmInfo;
-    
+
     /** Debug handler **/
     private static $debugHandler;
-    
+
+    public static $dbClass;
+
     /**
      * Initialize database handlers, debug handler, sets up sql/site configs
      * @category Armory class
@@ -67,22 +69,23 @@ Class Armory {
      * @return   bool
      **/
     public static function InitializeArmory() {
-        if(!@include(__ARMORYDIRECTORY__ . '/includes/classes/configuration.php')) {
+        if (!require(__ARMORYDIRECTORY__ . '/includes/classes/configuration.php'))
             die('<b>Error</b>: unable to load configuration file!');
-        }
-        if(!@require_once(__ARMORYDIRECTORY__ . '/includes/classes/class.dbhandler.php')) {
-            die('<b>Error</b>: unable to load database class!');
-        }
-        if(!@require_once(__ARMORYDIRECTORY__ . '/includes/classes/class.debug.php')) {
+        if (!require(__ARMORYDIRECTORY__ . '/includes/classes/class.debug.php'))
             die('<b>Error</b>: unable to load debug class!');
-        }
+        if (!require(__ARMORYDIRECTORY__ . '/includes/classes/mysql/class.databaseHandler.php'))
+            die('<b>Error</b>: unable to load database abstract class!');
+        if (!require(__ARMORYDIRECTORY__ . '/includes/classes/mysql/class.' . $ArmoryConfig['mysql']['DbExtension'] . 'Client.php'))
+            die('<b>Error</b>: unable to load mysql client class! (Unable to load: class.' . $ArmoryConfig['mysql']['DbExtension'] . 'Client.php');
+
         self::$mysqlconfig  = $ArmoryConfig['mysql'];
         self::$armoryconfig = $ArmoryConfig['settings'];
         self::$debugHandler = new ArmoryDebug(array('useDebug' => self::$armoryconfig['useDebug'], 'logLevel' => self::$armoryconfig['logLevel']));
         self::$realmData    = $ArmoryConfig['multiRealm'];
         if(!defined('SKIP_DB')) {
-            self::$aDB = new ArmoryDatabaseHandler(self::$mysqlconfig['host_armory'], self::$mysqlconfig['user_armory'], self::$mysqlconfig['pass_armory'], self::$mysqlconfig['name_armory'], self::$mysqlconfig['charset_armory'], self::$armoryconfig['db_prefix']);
-            self::$rDB = new ArmoryDatabaseHandler(self::$mysqlconfig['host_realmd'], self::$mysqlconfig['user_realmd'], self::$mysqlconfig['pass_realmd'], self::$mysqlconfig['name_realmd'], self::$mysqlconfig['charset_realmd']);
+            self::$dbClass = self::$mysqlconfig['DbExtension'] . 'Client';
+            self::$aDB = new self::$dbClass(self::$mysqlconfig['host_armory'], self::$mysqlconfig['user_armory'], self::$mysqlconfig['pass_armory'], self::$mysqlconfig['port_armory'], self::$mysqlconfig['name_armory'], self::$mysqlconfig['charset_armory'], self::$armoryconfig['db_prefix']);
+            self::$rDB = new self::$dbClass(self::$mysqlconfig['host_realmd'], self::$mysqlconfig['user_realmd'], self::$mysqlconfig['pass_realmd'], self::$mysqlconfig['port_realmd'], self::$mysqlconfig['name_realmd'], self::$mysqlconfig['charset_realmd']);
             if(isset($_GET['r'])) {
                 if(preg_match('/,/', $_GET['r'])) {
                     // Achievements/statistics comparison cases
@@ -95,17 +98,17 @@ Class Armory {
                 $realm_id = self::FindRealm($realmName);
                 if(isset(self::$realmData[$realm_id])) {
                     self::$connectionData = self::$realmData[$realm_id];
-                    self::$cDB = new ArmoryDatabaseHandler(self::$connectionData['host_characters'], self::$connectionData['user_characters'], self::$connectionData['pass_characters'], self::$connectionData['name_characters'], self::$connectionData['charset_characters']);
+                    self::$cDB = new self::$dbClass(self::$connectionData['host_characters'], self::$connectionData['user_characters'], self::$connectionData['pass_characters'], self::$connectionData['port_characters'], self::$connectionData['name_characters'], self::$connectionData['charset_characters']);
                     self::$currentRealmInfo = array('name' => self::$connectionData['name'], 'id' => $realm_id, 'type' => self::$connectionData['type'], 'connected' => true);
-                    self::$wDB = new ArmoryDatabaseHandler(self::$connectionData['host_world'], self::$connectionData['user_world'], self::$connectionData['pass_world'], self::$connectionData['name_world'], self::$connectionData['charset_world']);
+                    self::$wDB = new self::$dbClass(self::$connectionData['host_world'], self::$connectionData['user_world'], self::$connectionData['pass_world'], self::$connectionData['port_world'], self::$connectionData['name_world'], self::$connectionData['charset_world']);
                 }
             }
             $realm_info = self::$realmData[1];
             if(self::$cDB == null) {
-                self::$cDB = new ArmoryDatabaseHandler($realm_info['host_characters'], $realm_info['user_characters'], $realm_info['pass_characters'], $realm_info['name_characters'], $realm_info['charset_characters']);
+                self::$cDB = new self::$dbClass($realm_info['host_characters'], $realm_info['user_characters'], $realm_info['pass_characters'], $realm_info['port_characters'], $realm_info['name_characters'], $realm_info['charset_characters']);
             }
             if(self::$wDB == null) {
-                self::$wDB = new ArmoryDatabaseHandler($realm_info['host_world'], $realm_info['user_world'], $realm_info['pass_world'], $realm_info['name_world'], $realm_info['charset_world']);
+                self::$wDB = new self::$dbClass($realm_info['host_world'], $realm_info['user_world'], $realm_info['pass_world'], $realm_info['port_world'], $realm_info['name_world'], $realm_info['charset_world']);
             }
             if(!self::$currentRealmInfo) {
                 self::$currentRealmInfo = array('name' => $realm_info['name'], 'id' => 1, 'type' => $realm_info['type'], 'connected' => true);
@@ -145,7 +148,7 @@ Class Armory {
                 break;
         }
     }
-    
+
     /**
      * Checks browser language from HTTP_ACCEPT_LANGUAGE
      * @category Armory class
@@ -174,7 +177,7 @@ Class Armory {
         }
         return null;
     }
-    
+
     /**
      * Returns debug log handler
      * @category Armory class
@@ -184,7 +187,7 @@ Class Armory {
     public static function Log() {
         return self::$debugHandler;
     }
-    
+
     /**
      * Returns current locale (en_gb/ru_ru/fr_fr, etc.)
      * @category Armory class
@@ -204,7 +207,7 @@ Class Armory {
         }
         return self::$_locale;
     }
-    
+
     /**
      * Returns locale ID (0 for en_gb, etc.)
      * @category Armory class
@@ -214,7 +217,7 @@ Class Armory {
     public static function GetLoc() {
         return self::$_loc;
     }
-    
+
     /**
      * Sets locale
      * @category Armory class
@@ -226,7 +229,7 @@ Class Armory {
         self::$_loc    = $locale_id;
         return true;
     }
-    
+
     public static function FindRealm($realm_name) {
         $realm_name = urldecode($realm_name);
         foreach(self::$realmData as $realm) {
